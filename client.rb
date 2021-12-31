@@ -25,16 +25,14 @@ conn = Faraday.new(host) do |f|
 end
 
 message = Traveltime::Requests::TimeFilterFastRequest.new(
-  oneToManyRequest: Traveltime::Requests::TimeFilterFastRequest::OneToMany.new(
-    departureLocation: Traveltime::Requests::Coords.new(lat: 51, lng: -0.12), # :message, 1, "com.igeolise.traveltime.rabbitmq.requests.Coords"
-    # locationDeltas: , # :sint32, 2
-    transportation: Traveltime::Requests::Transportation.new(
+  oneToManyRequest: {
+    departureLocation: { lat: 51, lng: -0.12 },
+    transportation: {
       type: Traveltime::Requests::TransportationType::DRIVING_AND_FERRY
-    ), # :message, 3, "com.igeolise.traveltime.rabbitmq.requests.Transportation"
-    # arrivalTimePeriod: , # :enum, 4, "com.igeolise.traveltime.rabbitmq.requests.TimePeriod"
-    travelTime: 5, # :sint32, 5
-    properties: [Traveltime::Requests::TimeFilterFastRequest::Property::DISTANCES] # :enum, 6, "com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequest.Property"
-  )
+    },
+    travelTime: 5,
+    properties: [Traveltime::Requests::TimeFilterFastRequest::Property::DISTANCES]
+  }
 )
 
 begin
